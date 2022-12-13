@@ -26,7 +26,7 @@ class UserController extends Controller
     /**
      * 
      */
-    public function signup(SignupRequest $request){
+    public function createAccount(SignupRequest $request){
         $user = User::create([
             'email' => $request->email,
             'name' => $request->name,
