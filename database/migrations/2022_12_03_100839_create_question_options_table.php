@@ -18,6 +18,7 @@ class CreateQuestionOptionsTable extends Migration
             $table->integer('question_id')->unsigned()->index();
             $table->foreign('question_id')->references('id')->on('questions')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->string('option_label');
+            $table->integer('rank');
             $table->timestamps();
         });
     }
