@@ -19,5 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('check-email-account', [UserController::class, 'checkEmailAccount'])->name('user-check-email-account-api');
-Route::post('create-account', [UserController::class, 'createAccount'])->name('user-create-account-api');
+
+
+Route::prefix('user')->group(function() {
+    Route::post('check-email-account', [UserController::class, 'checkEmailAccount'])->name('user-check-email-account-api');
+    Route::post('create-account', [UserController::class, 'createAccount'])->name('user-create-account-api');
+});
