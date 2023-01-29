@@ -29,6 +29,6 @@ Route::prefix('user')->group(function() {
 
 Route::prefix('location')->group(function() {
     Route::get('countries', [LocationController::class, 'listCountries'])->name('location-list-countries-api');
-    Route::get('states/{country}', [LocationController::class, 'lsitStates'])->name('location-list-states-api');
-    Route::get('cities/{country}', [LocationController::class, 'lsitCities'])->name('location-list-cities-api');
+    Route::get('states/{country}', [LocationController::class, 'listStates'])->name('location-list-states-api');
+    Route::get('cities/{country}', [LocationController::class, 'listCities'])->name('location-list-cities-api');
 });
