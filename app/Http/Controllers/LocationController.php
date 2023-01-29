@@ -39,7 +39,7 @@ class LocationController extends Controller
             $states = State::where('country_id', $country)->get();
         }
         $data = [
-            'countries' => $states,
+            'states' => $states,
             'message' => "States listed successfully"
         ];
         return response()->json($data, 200);
@@ -56,7 +56,7 @@ class LocationController extends Controller
         }
         
         $data = [
-            'countries' => $cities,
+            'cities' => $cities,
             'message' => "Cities listed successfully"
         ];
         return response()->json($data, 200);
