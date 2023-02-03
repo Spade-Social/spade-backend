@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SignupRequest;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\User;
@@ -50,9 +51,9 @@ class LocationController extends Controller
      */
     public function listCities(Request $request, $state){
         if($request->name){
-            $cities = State::where('state_id', $state)->where('name','LIKE','%'.strip_tags($request->name).'%')->get();
+            $cities = City::where('state_id', $state)->where('name','LIKE','%'.strip_tags($request->name).'%')->get();
         }else{
-            $cities = State::where('state_id', $state)->get();
+            $cities = City::where('state_id', $state)->get();
         }
         
         $data = [
