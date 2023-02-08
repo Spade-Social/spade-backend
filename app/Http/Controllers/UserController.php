@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SigninRequest;
 use App\Http\Requests\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,6 +46,37 @@ class UserController extends Controller
             'message' => 'User account created successfully'
         ];
         return response()->json($data, 200);
+    }
+
+    public function login(SigninRequest $request){
+
+        $user = User::where(['email' => $request->email])->first();
+        if($user){
+            if(Hash::check($request->password, $user->password)){
+                $token = Str::random(60);
+                $user->update(['api_token' => hash('sha256', $token)]);
+                $data = [
+                    'user' => $user,
+                    'token' => $token,
+                    'message' => 'User account created successfully'
+                ];
+                
+            }else{
+
+                $data = [
+                    'user' => null,
+                    'token' => null,
+                    'message' => 'Incorrect email or password'
+                ];
+            }
+
+            return response()->json($data, 200);
+        }
+
+        $data = [
+            'message' => 'No user found'
+        ];
+        return response()->json($data, 404);
     }
 
     public function updateAccount(Request $request){
