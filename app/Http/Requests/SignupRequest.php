@@ -28,6 +28,8 @@ class SignupRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|string',
             'name' => 'required|string',
+            'phone_code' => 'required|numeric',
+            'phone_number' => 'required|numeric'
         ];
     }
 }

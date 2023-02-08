@@ -6,6 +6,7 @@ use App\Http\Requests\SignupRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use PDO;
 
 class UserController extends Controller
@@ -24,17 +25,34 @@ class UserController extends Controller
     }
 
     /**
-     * 
+     * Create an account
      */
     public function createAccount(SignupRequest $request){
+
+        $token = Str::random(60);
+
         $user = User::create([
             'email' => $request->email,
             'name' => $request->name,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'phone_code' => $request->phone_code,
+            "phone_number" => $request->phone_number,
+            'api_token' => hash('sha256', $token),
         ]);
         $data = [
             'user' => $user,
+            'token' => $token,
             'message' => 'User account created successfully'
+        ];
+        return response()->json($data, 200);
+    }
+
+    public function updateAccount(Request $request){
+        $user = $request->user();
+        $user->update($request->all());
+        $data = [
+            'user' => $user,
+            'message' => 'User account updated successfully'
         ];
         return response()->json($data, 200);
     }
