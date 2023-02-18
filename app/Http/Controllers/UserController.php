@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveFunPlacesRequest;
+use App\Http\Requests\SendVerificationCodeRequest;
 use App\Http\Requests\SigninRequest;
 use App\Http\Requests\SignupRequest;
+use App\Http\Requests\VerifyEmailRequest;
 use App\Models\User;
 use App\Models\UserFunPlace;
 use Illuminate\Http\Request;
@@ -42,11 +44,45 @@ class UserController extends Controller
             "phone_number" => $request->phone_number,
             'api_token' => hash('sha256', $token),
         ]);
+        $user->sendVerificationCode();
         $data = [
             'user' => $user,
             'token' => $token,
             'message' => 'User account created successfully'
         ];
+        return response()->json($data, 200);
+    }
+
+    public function resendVerificationCode(SendVerificationCodeRequest $request){
+        
+        $user = User::where(['email' => $request->email])->first();
+        if($user){
+            $user->sendVerificationCode();
+        }
+        $data = [
+            'user' => null,
+            'token' => null,
+            'message' => 'Verification code has been sent to your email'
+        ];
+        return response()->json($data, 200);
+    }
+
+    public function verifyEmail(VerifyEmailRequest $request){
+        $user = User::where(['email' => $request->email])->first();
+        if($user->verification_code == $request->verification_code){
+            $user->update([
+                'email_verified_at' => now()
+            ]);
+            $data = [
+                'verified' => true,
+                'message' => 'User email verified'
+            ];
+        }else{
+            $data = [
+                'verified' => false,
+                'message' => 'Incorrect  verification code'
+            ];
+        }
         return response()->json($data, 200);
     }
 

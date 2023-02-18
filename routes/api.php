@@ -26,6 +26,8 @@ Route::prefix('user')->group(function() {
     Route::post('check-email-account', [UserController::class, 'checkEmailAccount'])->name('user-check-email-account-api');
     Route::post('create-account', [UserController::class, 'createAccount'])->name('user-create-account-api');
     Route::post('login', [UserController::class, 'login'])->name('user-login-api');
+    Route::post('resend-verification-code', [UserController::class, 'resendVerificationCode'])->name('user-resend-verification-code-api');
+    Route::post('verify-email', [UserController::class, 'verifyEmail'])->name('user-verify-email-api');
 
     Route::group(['middleware' => ['auth:api']], function() {
         Route::post('/update-profile-info', [UserController::class, 'updateAccount'])->name('user-update-account');
