@@ -29,6 +29,7 @@ Route::prefix('user')->group(function() {
 
     Route::group(['middleware' => ['auth:api']], function() {
         Route::post('/update-profile-info', [UserController::class, 'updateAccount'])->name('user-update-account');
+        Route::post('/save-fun-places', [UserController::class, 'saveFunPlaces'])->name('user-save-fun-places');
      });
 });
 

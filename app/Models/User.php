@@ -20,7 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'phone_code', 'phone_number', 'country', 'state', 'city', 'postal_code',
         'religion', 'birthday', 'gender', 'interest', 'height', 'build', 'build_interest',
-        'relationship_personality', 'ethnicity', 'personality_score', 'api_token'
+        'relationship_personality', 'ethnicity', 'preferred_ethnicity', 'preferred_religion', 'personality_score', 'api_token',
+        'preferred_gender', 'most_free', 'drink', 'smoke', 'children', 'highest_education'
     ];
 
     /**
@@ -32,6 +33,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
 
     /**
      * The attributes that should be cast.
@@ -40,5 +42,14 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'relationship_personality' => 'array'
     ];
+
+    /**
+     * Get the inspection availabilities for user
+     */
+    public function funPlaces()
+    {
+        return $this->hasMany(UserFunPlace::class);
+    }
 }
