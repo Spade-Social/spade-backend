@@ -13,14 +13,14 @@ class AddAdditionalColumnsToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('preferred_ethnicity')->nullable()->after('personality_score');
             $table->string('preferred_religion')->nullable()->after('preferred_ethnicity');
             $table->string('preferred_gender')->nullable()->after('preferred_religion');
             $table->string('most_free')->nullable()->after('preferred_gender');
             $table->string('drink')->nullable()->after('most_free');
             $table->string('smoke')->nullable()->after('drink');
-            $table->int('children')->nullable()->after('smoke');
+            $table->integer('children')->nullable()->after('smoke');
             $table->string('highest_education')->nullable()->after('children');
         });
     }
@@ -32,7 +32,7 @@ class AddAdditionalColumnsToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('preferred_ethnicity');
             $table->dropColumn('preferred_religion');
             $table->dropColumn('preferred_gender');
