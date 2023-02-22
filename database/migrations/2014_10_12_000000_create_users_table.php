@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('build_interest')->nullable();
             $table->string('relationship_personality')->nullable();
             $table->string('ethnicity')->nullable();
-            $table->float('personality_score');
+            $table->float('personality_score')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

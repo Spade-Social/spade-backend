@@ -44,7 +44,7 @@ class UserController extends Controller
             "phone_number" => $request->phone_number,
             'api_token' => hash('sha256', $token),
         ]);
-        $user->sendVerificationCode();
+        // $user->sendVerificationCode();
         $data = [
             'user' => $user,
             'token' => $token,
